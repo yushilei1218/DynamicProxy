@@ -15,8 +15,10 @@ import com.yushilei.dynamicproxy.interf.InterfApi;
 import com.yushilei.dynamicproxy.net.NetApi;
 import com.yushilei.dynamicproxy.net.Res;
 import com.yushilei.dynamicproxy.proxy.MyAnnotation;
+import com.yushilei.dynamicproxy.proxy.NormalProxy;
 import com.yushilei.dynamicproxy.util.JsonUtil;
 
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     public void netRequest(View view) {
         //创建网络请求的 retrofit2 call
         Call<Res<Tabs>> call = NetApi.api.getTabs("android", "6.3.6");
-
+        //retrofit2.Call 提供了2个API 触发网络请求
         //发起异步网络请求 callback回调方法运行在主线程
         call.enqueue(new Callback<Res<Tabs>>() {
             @Override
@@ -91,6 +93,11 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     tv.setText(JsonUtil.toJson(response.body()));
                 }
+//                response.isSuccessful();code >= 200 && code < 300
+//                response.code();状态码
+//                response.headers(); 响应Headers
+//                response.message();HTTP status message
+//                response.raw();//获取OkHttpResponse
             }
 
             @Override
@@ -99,13 +106,17 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "网络异常", Toast.LENGTH_SHORT).show();
             }
         });
+
+        //Response<Res<Tabs>> execute = call.execute(); 当前线程发起同步网络请求
+        //call.cancel(); 取消网络请求
+        //call.isCanceled(); 是否已取消
     }
 
     /**
      * 普通的代理模式
      */
     public void normalProxy(View view) {
-        com.yushilei.dynamicproxy.proxy.Proxy proxy = new com.yushilei.dynamicproxy.proxy.Proxy(
+        NormalProxy proxy = new NormalProxy(
                 new InvocationHandler() {
                     @Override
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

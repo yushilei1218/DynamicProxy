@@ -11,20 +11,20 @@ import java.lang.reflect.Method;
  * @desc
  */
 
-public class Proxy implements Service {
+public class NormalProxy implements Service {
     /**
      * 接口方法的真正实现对象
      */
     InvocationHandler h;
 
-    public Proxy(InvocationHandler h) {
+    public NormalProxy(InvocationHandler h) {
         this.h = h;
     }
 
     /**
-     * Proxy 这个类仅仅是提供了接口的实现的方法体，
+     * NormalProxy 这个类仅仅是提供了接口的实现的方法体，
      * 而真正的实现实际上是调用的InvocationHandler h.invoke()方法
-     * Proxy 利用InvocationHandler 间接的实现了addUser 也就是代理模式
+     * NormalProxy 利用InvocationHandler 间接的实现了addUser 也就是代理模式
      */
     @Override
     public User addUser(String name, String psw) {
@@ -42,6 +42,6 @@ public class Proxy implements Service {
 
     @Override
     public String toString() {
-        return "MyProxy.class";
+        return "NormalProxy.class";
     }
 }

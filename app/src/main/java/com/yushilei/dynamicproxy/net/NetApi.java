@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 /**
  * @auther by yushilei.
  * @time 2017/6/22-11:34
- * @desc
+ * @desc API
  */
 
 /**
@@ -51,25 +51,28 @@ public class NetApi {
         @POST("/path")
         Call<Res<User>> getUser(@Body Req req);
     }
-    //下面是一些例子
-//    @GET("users/{username}")
-//    Call<User> getUser(@Path("username") String username,@Header("Cache-Control") int maxAge);
-//
-//    @Headers({"Cache-Control: max-age=640000", "User-Agent: My-App-Name"})//note2
-//    @POST("users/new")
-//    Call<User> createUser(@Body User user,@Query("sort") String sort);  //user支持被gson序列化的一个类，如JavaBean
-//
-//    @FormUrlEncoded
-//    @POST("some/endpoint")
-//    Call<SomeResponse> someEndpoint(@FieldMap Map<String, String> names);
-//
-//    @POST("https://blog.csdn.net/") //note3
-//    Call<Response<User>> getUser(@Query("name") String name);
-//
-//    @Multipart  //note4
-//    @POST("some/endpoint")
-//    Call<Response> uploadImage(@Part("description") String description, @Part("image") RequestBody image)
-//
-//    @GET("users/{username}") //note5
-//    void getUser(@Path("username") String username, Callback<User> cb);
+    /**
+     *    下面是一些例子
+     @GET("users/{username}")
+     Call<User> getUser(@Path("username") String username,@Header("Cache-Control") int maxAge);
+
+     @Headers({"Cache-Control: max-age=640000", "User-Agent: My-App-Name"})//note2
+     @POST("users/new")
+     Call<User> createUser(@Body User user,@Query("sort") String sort);  //user支持被gson序列化的一个类，如JavaBean
+
+     @FormUrlEncoded
+     @POST("some/endpoint")
+     Call<SomeResponse> someEndpoint(@FieldMap Map<String, String> names);
+
+     @POST("https://blog.csdn.net/") //note3
+     Call<Response<User>> getUser(@Query("name") String name);
+
+     @Multipart  //note4
+     @POST("some/endpoint")
+     Call<Response> uploadImage(@Part("description") String description, @Part("image") RequestBody image)
+
+     @GET("users/{username}") //note5
+     void getUser(@Path("username") String username, Callback<User> cb);
+     */
+
 }

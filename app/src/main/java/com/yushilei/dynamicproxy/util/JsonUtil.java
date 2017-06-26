@@ -6,7 +6,7 @@ import com.google.gson.GsonBuilder;
 /**
  * @auther by yushilei.
  * @time 2017/6/22-15:20
- * @desc
+ * @desc Json 反系列化
  */
 
 public class JsonUtil {
