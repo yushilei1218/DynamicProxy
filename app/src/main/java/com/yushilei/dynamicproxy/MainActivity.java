@@ -11,11 +11,14 @@ import android.widget.Toast;
 
 import com.yushilei.dynamicproxy.bean.Tabs;
 import com.yushilei.dynamicproxy.bean.User;
+import com.yushilei.dynamicproxy.fastjson.NetApi2;
+import com.yushilei.dynamicproxy.fastjson.XmlyHome;
 import com.yushilei.dynamicproxy.interf.InterfApi;
 import com.yushilei.dynamicproxy.net.NetApi;
 import com.yushilei.dynamicproxy.net.Res;
 import com.yushilei.dynamicproxy.proxy.MyAnnotation;
 import com.yushilei.dynamicproxy.proxy.NormalProxy;
+import com.yushilei.dynamicproxy.util.FastJsonUtil;
 import com.yushilei.dynamicproxy.util.JsonUtil;
 
 import java.io.IOException;
@@ -139,5 +142,26 @@ public class MainActivity extends AppCompatActivity {
 
         User user = proxy.addUser("普通代理name", "普通代理psw");
         Log.i(TAG, user.toString());
+    }
+
+    public void fastJson(View view) {
+        NetApi2.api.getHome().enqueue(new Callback<XmlyHome>() {
+            @Override
+            public void onResponse(@NonNull Call<XmlyHome> call, @NonNull Response<XmlyHome> response) {
+                XmlyHome body = response.body();
+                String s = FastJsonUtil.toJson(body);
+                tv.setText(s);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<XmlyHome> call, @NonNull Throwable t) {
+                t.printStackTrace();
+                Toast.makeText(MainActivity.this, "网络异常", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void testPager(View view) {
+        
     }
 }

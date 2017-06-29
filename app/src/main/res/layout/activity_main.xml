@@ -34,6 +34,18 @@
             android:onClick="normalProxy"
             android:text="普通的代理模式" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="fastJson"
+            android:text="fastJson集合Retrofit2" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="testPager"
+            android:text="ViewPager" />
+
         <TextView
             android:id="@+id/tv"
             android:layout_width="match_parent"
