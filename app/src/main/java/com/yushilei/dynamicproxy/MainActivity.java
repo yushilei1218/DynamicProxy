@@ -9,11 +9,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yushilei.dynamicproxy.base.AppStack;
+import com.yushilei.dynamicproxy.base.BaseActivity;
+import com.yushilei.dynamicproxy.base.DialogUtil;
 import com.yushilei.dynamicproxy.bean.Tabs;
 import com.yushilei.dynamicproxy.bean.User;
 import com.yushilei.dynamicproxy.fastjson.NetApi2;
 import com.yushilei.dynamicproxy.fastjson.XmlyHome;
 import com.yushilei.dynamicproxy.interf.InterfApi;
+import com.yushilei.dynamicproxy.net.CallBackProxy;
 import com.yushilei.dynamicproxy.net.NetApi;
 import com.yushilei.dynamicproxy.net.Res;
 import com.yushilei.dynamicproxy.proxy.MyAnnotation;
@@ -33,7 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.http.POST;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
 
     private TextView tv;
@@ -87,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
      */
     public void netRequest(View view) {
         //创建网络请求的 retrofit2 call
+        //Call是一个接口，具体的实现类final class OkHttpCall<T> implements Call<T>
+        //OkHttpCall 可以从动态代理实现api invocationHandler内部查看
+        //OkHttpCall 是对 OkHttp call的进一步封装适配retrofit
         Call<Res<Tabs>> call = NetApi.api.getTabs("android", "6.3.6");
         //retrofit2.Call 提供了2个API 触发网络请求
         //发起异步网络请求 callback回调方法运行在主线程
@@ -113,6 +120,23 @@ public class MainActivity extends AppCompatActivity {
         //Response<Res<Tabs>> execute = call.execute(); 当前线程发起同步网络请求
         //call.cancel(); 取消网络请求
         //call.isCanceled(); 是否已取消
+
+        /*增加代理CallBackProxy 处理网络请求公共部分
+
+        call.enqueue(new CallBackProxy<Res<Tabs>>(new Callback<Res<Tabs>>() {
+            @Override
+            public void onResponse(@NonNull Call<Res<Tabs>> call, @NonNull Response<Res<Tabs>> response) {
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Res<Tabs>> call, @NonNull Throwable t) {
+
+            }
+        }));
+         */
+
+
     }
 
     /**
@@ -162,6 +186,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testPager(View view) {
-        
+
+    }
+
+    public void dialog(View view) {
+        AppStack.getTopActivity().showDialog(DialogUtil.getForceQuitDialog(this));
     }
 }

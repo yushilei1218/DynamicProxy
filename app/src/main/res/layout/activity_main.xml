@@ -45,6 +45,11 @@
             android:layout_height="wrap_content"
             android:onClick="testPager"
             android:text="ViewPager" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="dialog"
+            android:text="dialog" />
 
         <TextView
             android:id="@+id/tv"
